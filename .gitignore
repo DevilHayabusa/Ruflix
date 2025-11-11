@@ -1,13 +1,3 @@
-# 1. Ignorar dependencias de Node (se reinstalan con 'npm install')
-backend/node_modules/
-
-# 2. Ignorar el archivo de variables de entorno (¡Contraseñas!)
-backend/.env
-
-# 3. Ignorar los archivos multimedia (¡Los videos!)
-media/videos/
-media/thumbnails/
-
 # Opcional: Ignorar archivos del sistema operativo
 .DS_Store
 Thumbs.db
