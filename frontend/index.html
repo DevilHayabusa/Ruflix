@@ -2,67 +2,20 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Netflix Familiar</title>
-    <style>
-        body { font-family: sans-serif; background: #141414; color: white; }
-        h1 { text-align: center; color: #E50914; }
-        #video_player{
-            width: 80%;
-            max-width: 900px;
-            display: block;
-            margin: 20px auto;
-            border: 3px solid #333;
-        }
-        #library {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        .movie {
-            cursor: pointer;
-            background: #333;
-            padding: 10px;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-        .video_item:hover {
-            background: #E50914;
-        }
-    </style>
+    <title>Mi Netflix</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
-
 <body>
-    <h1>Ruflix</h1>
-
-    <video id="movie_player" controls autoplay width="600"></video>
-
-    <hr>
-    <h2>Biblioteca</h2>
-    <div id="library"></div>
-
-    <script>
-        const movie_player = document.getElementById('movie_player');
-        const library_container = document.getElementById('library');
-
-        fetch('/api/peliculas')
-            .then(response => response.json())
-            .then(videos => {
-                videos.forEach(video => {
-                    const videoDiv = document.createElement('div');
-                    videoDiv.className = 'movie';
-                    videoDiv.textContent = video;
-                    videoDiv.onclick = () => {
-                        movie_player.src = `/peliculas/${video}`;
-                        movie_player.play();
-                    };
-                    library_container.appendChild(videoDiv);
-                });
-            })
-            .catch(err => console.error('Error al cargar la biblioteca de peliculas:', err));
-    </script>
+    <header>
+        <h1>Mi Netflix</h1>
+        <button id="logout-btn">Cerrar Sesión</button>
+    </header>
+    <main>
+        <h2>Catálogo</h2>
+        <div id="video-grid" class="video-grid">
+            </div>
+    </main>
+    
+    <script src="js/main.js"></script>
 </body>
 </html>

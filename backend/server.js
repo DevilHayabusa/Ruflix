@@ -1,33 +1,21 @@
 
 const express = require('express');
-const path = require('path');
-const fs = require('fs');
+const cors = require('cors');
+require('dotenv').config();
 
 //Crear una instancia de la aplicación express
 const app = express();
-const PORT = 3000; 
-const videosDir = path.join(__dirname, 'public', 'peliculas');
+const port = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+//mideleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static('../frontend'));
+app.use('/media', express.static('../media'));
+// Rutas de la API
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/videos', require('./routes/videos'));
 
-//api
-app.get('/api/peliculas', (req, res) => {
-    fs.readdir(videosDir, (err, files) => {
-        if (err) {
-            console.error('Error al leer el directorio de videos:', err);
-            return res.status(500).json({ error: 'Error al leer el directorio de videos' });
-        }
-        //filtramos solo archivos de video
-        const videoFiles = files.filter(file => {
-            const ext = path.extname(file).toLowerCase();
-            return ext === '.mp4' || ext === '.mkv' || ext === '.avi';
-        });
-        res.json(videoFiles);
-    });
-});
-
-
-//Iniciar el servidor
-app.listen(PORT, () => {
-    console.log(`Servidor "Mi Netflix" iniciado en http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
 });
